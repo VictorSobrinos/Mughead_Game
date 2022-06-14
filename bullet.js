@@ -5,10 +5,10 @@ class Bullet {
         this.posX = playerPosX + playerWidth
         this.posY = playerPosY + playerHeight / 2 - 12.5
 
-        this.width = 50
-        this.height = 25
+        this.width = 70
+        this.height = 20
 
-        this.velX = 20
+        this.velX = 10
 
     }
 

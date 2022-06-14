@@ -1,6 +1,9 @@
 class Player {
-    constructor(ctx, Width, Height, posX, posY, keys, bossPosition, floor,lives) {
+    constructor(ctx, Width, Height, posX, posY, keys, bossPosition, floor, lives) {
         this.ctx = ctx
+
+        this.leftCheck = false
+        this.rightCheck = false
 
         this.size = {
             width: Width,
@@ -29,9 +32,18 @@ class Player {
         this.bossPosition = bossPosition
 
         this.lives = lives
+
+        this.cdtime = 50
+
+        this.cd = this.cdtime
     }
 
     draw() {
+        // ÚLTIMOS COMENTARIOS
+        if (this.cd < this.cdtime) {
+            this.cd++
+        }
+
         this.ctx.fillStyle = 'blue'
         this.ctx.fillRect(this.pos.x, this.pos.y, this.size.width, this.size.height)
         this.gravity()
@@ -48,18 +60,44 @@ class Player {
                     break;
 
                 case this.keys.LEFT:
-                    this.moveLeft()
+
+                    // this.moveLeft()
+                    this.leftCheck = true
                     break;
 
                 case this.keys.RIGHT:
-                    this.moveRight()
+                    // this.moveRight()
+                    this.rightCheck = true
                     break;
 
                 case this.keys.SHOOT:
-                    this.bullets.push(new Bullet(this.ctx, this.pos.x, this.pos.y, this.size.height, this.size.width))
+                    // ÚLTIMOS COMENTARIOS
+                    if (this.cd === this.cdtime) {
+                        this.bullets.push(new Bullet(this.ctx, this.pos.x, this.pos.y, this.size.height, this.size.width))
+                        this.cd = 0
+                    }
                     this.shoot()
                     console.log('shoot')
 
+            }
+
+        })
+        document.addEventListener('keyup', e => {
+
+            switch (e.keyCode) {
+                case this.keys.SPACE:
+                    this.jump()
+                    break;
+
+                case this.keys.LEFT:
+                    // this.moveLeft()
+                    this.leftCheck = false
+                    break;
+
+                case this.keys.RIGHT:
+                    // this.moveRight()
+                    this.rightCheck = false
+                    break;
             }
 
         })
@@ -68,7 +106,7 @@ class Player {
 
     moveLeft() {
         if (this.pos.x > 0) {
-            this.pos.x -= 20
+            this.pos.x -= 5
 
         }
     }
@@ -76,15 +114,15 @@ class Player {
     moveRight() {
         console.log(this.bossPosition)
         if (this.pos.x < this.bossPosition - this.size.width - 10)
-            this.pos.x += 20
+            this.pos.x += 5
 
     }
 
 
     jump() {
         if (this.pos.y === this.floorPosY) {
-            this.pos.y -= 120
-            this.velY -= 8
+            this.pos.y -= 20
+            this.velY = -12
         }
     }
 
@@ -102,9 +140,5 @@ class Player {
     shoot() {
         this.bullets.forEach(bullet => bullet.draw())
     }
-
-    // clearBullets() {
-    //      this.bullets = this.bullets.filter(bullet => bullet.posX <= this.boss.posX)
-    // }
 
 }

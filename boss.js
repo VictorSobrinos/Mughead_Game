@@ -1,18 +1,18 @@
 class Boss {
-    constructor(ctx, Width, Height, posX, posY, framesCounter) {
+    constructor(ctx, Width, Height, posX, posY, framesCounter, lives) {
         this.ctx = ctx
 
-        this.bossSize = {
+        this.size = {
             width: Width,
             heigth: Height
         }
 
-        this.bossPosition = {
+        this.position = {
             x: posX,
             y: posY
         }
 
-        this.floorPosY = this.bossPosition.y
+        this.floorPosY = this.position.y
 
         this.meatballs = []
         // this.bossImage = new Image()
@@ -20,16 +20,19 @@ class Boss {
 
         this.framesCounter = framesCounter
 
-        this.lives = 500
+        this.lives = lives
+
+        this.difficulty = 120
     }
 
     draw(framesCounter) {
 
         this.ctx.fillStyle = 'green'
-        this.ctx.fillRect(this.bossPosition.x, this.bossPosition.y, this.bossSize.width, this.bossSize.heigth)
+        this.ctx.fillRect(this.position.x, this.position.y, this.size.width, this.size.heigth)
 
-        if (framesCounter % 140 === 0) {
-            this.meatballs.push(new Meatball(this.ctx, this.bossPosition.x, this.bossPosition.y, this.bossSize.heigth))
+        if (framesCounter % this.difficulty === 0) {
+            this.meatballs.push(new Meatball(this.ctx, this.position.x, this.position.y, this.size.heigth))
+
         }
 
 
