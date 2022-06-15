@@ -8,9 +8,12 @@ const App = {
     description: 'Best Game in Town',
     appWidth: undefined,
     appHeight: undefined,
+    audio: new Audio("./resources/cuphead_music.mp3"),
+
 
     // CANVAS SIZE 
     canvasSize: {
+
         w: undefined,
         h: undefined
     },
@@ -23,6 +26,7 @@ const App = {
     player: undefined,
     boss: undefined,
     floor: undefined,
+    boolVal: false,
 
     shiftedMeatballs: [],
     shiftedBullets: [],
@@ -32,14 +36,6 @@ const App = {
 
     bossHits: 0,
 
-    // Game control keys 
-    keys: {
-        SPACE: 32,
-        LEFT: 37,
-        RIGHT: 39,
-        SHOOT: 69
-    },
-
     init() {
 
         this.canvas = document.querySelector('#canvas')
@@ -47,6 +43,8 @@ const App = {
 
         this.setDimensions()
         this.start()
+        this.audio.play()
+        this.boolVal = true
     },
 
     setDimensions() {
@@ -63,7 +61,6 @@ const App = {
         document.querySelector('#canvas').setAttribute('width', this.appWidth)
         document.querySelector('#canvas').setAttribute('height', this.appHeight)
     },
-
 
     start() {
 
@@ -94,105 +91,130 @@ const App = {
             this.isCollision()
             this.clearMeatballs()
             this.clearBullets()
-
         }, 1000 / this.FPS)
     },
 
     // VUELVE AQUÍ!!!
     createAll() {
 
-        this.boss = new Boss(this.ctx, 200, 400, this.canvasSize.w - 300, this.floor - 300, this.framesCounter, 50)
-        this.player = new Player(this.ctx, 50, 100, 100, this.floor, this.keys, this.boss.position.x, this.floor, 0)
-    },
 
+        this.boss = new Boss(this.ctx, 200, 400, this.canvasSize.w - 300, this.floor - 300, this.framesCounter, 100)
+        this.player = new Player(this.ctx, 50, 100, 100, this.floor, this.boss.position.x, this.floor, 0)
+        
 
+    //     else if(!diffBool) {
+    //     this.boss = new Boss(this.ctx, 200, 400, this.canvasSize.w - 300, this.floor - 300, this.framesCounter, 500)
+    //     this.player = new Player(this.ctx, 50, 100, 100, this.floor, this.boss.position.x, this.floor, 1)
+    // }
+
+},
 
     clear() {
 
         this.ctx.clearRect(0, 0, this.appWidth, this.appHeight)
     },
 
-    isCollision() {
+        isCollision() {
 
-        this.boss.meatballs.forEach(meatball => {
-            if ((this.player.pos.x + this.player.size.width >= meatball.posX + 25 //+25 to improve hitbox limits
-                && this.player.pos.x < meatball.posX + meatball.width)
-                && (this.player.pos.y + this.player.size.height >= meatball.posY + 20)) { //+20 to improve hitbox limits
+    this.boss.meatballs.forEach(meatball => {
+        if ((this.player.pos.x + this.player.size.width >= meatball.posX + 25 //+25 to improve hitbox limits
+            && this.player.pos.x < meatball.posX + meatball.width)
+            && (this.player.pos.y + this.player.size.height >= meatball.posY + 20)) { //+20 to improve hitbox limits
 
-                this.shiftedMeatballs.push(this.boss.meatballs.shift())
+            this.shiftedMeatballs.push(this.boss.meatballs.shift())
 
-                this.player.lives = this.shiftedMeatballs.length
-                if (this.player.lives === 3) {
-
-                }
+            this.player.hits = this.shiftedMeatballs.length
+            if (this.player.hits === 3) {
 
             }
-        })
-        console.log(this.bossHits)
-        // BULLETS
-        this.player.bullets.forEach(bullet => {
-            if (bullet.posX + bullet.width >= this.boss.position.x && this.hitCondition === 0) {
-                this.hitCondition++
-                this.bossHits++
-            }
-            else {
-                this.hitCondition = 0
-            }
 
-        })
-        if (this.bossHits >= this.boss.lives) {
-            this.youWin()
+        }
+    })
+
+    // Hit condition stops bullets from constantly damaging the boss
+    this.player.bullets.forEach(bullet => {
+
+        if (bullet.posX + bullet.width >= this.boss.position.x && this.hitCondition === 0) {
+            this.hitCondition++
+            this.bossHits++
+        }
+        else {
+            this.hitCondition = 0
         }
 
-        if (this.player.lives === 3) {
-            this.gameOver()
-        }
-    },
+    })
 
-    clearMeatballs() {
-
-        this.boss.meatballs = this.boss.meatballs.filter(meatball => meatball.posX >= 0)
-    },
-
-    clearBullets() {
-
-        this.player.bullets = this.player.bullets.filter(bullet => bullet.posX < this.boss.position.x)
-    },
-
-    gameOver() {
-
-        clearInterval(this.interval)
-
-        this.clear()
-        this.ctx.font = "30px Arial"
-        this.ctx.fillText("YOU LOST! :(", this.canvasSize.w / 2 - 200, this.canvasSize.h / 2)
-        this.player.lives = 0
-
-        this.bossHits = 0
-        this.shiftedMeatballs = []
-        this.player.cdtime = 0
-
-        setTimeout(() => {
-            this.start()
-        }, 3000)
-
-    },
-
-    youWin() {
-
-        clearInterval(this.interval)
-        this.clear()
-        this.player.cdtime = 0
-        this.ctx.font = "30px Arial"
-        this.ctx.fillText("YOU WON :) GET A LIFE, THO", this.canvasSize.w / 2 - 200, this.canvasSize.h / 2)
-        this.player.bullets = []
-        this.player.lives = 0
-        this.bossHits = 0
-
-        setTimeout(() => {
-            this.start()
-        }, 3000)
+    if (this.bossHits >= this.boss.hits) {
+        this.youWin()
     }
+
+    if (this.player.hits === 3) {
+        this.gameOver()
+
+    }
+},
+
+clearMeatballs() {
+
+    this.boss.meatballs = this.boss.meatballs.filter(meatball => meatball.posX >= 0)
+},
+
+clearBullets() {
+
+    this.player.bullets = this.player.bullets.filter(bullet => bullet.posX < this.boss.position.x)
+},
+
+gameOver() {
+    console.log('gameOver')
+    clearInterval(this.interval)
+    this.clear()
+
+    this.ctx.font = "30px Arial"
+    this.ctx.fillText("YOU LOST! :(", this.canvasSize.w / 2 - 200, this.canvasSize.h / 2)
+
+    this.player.hits = 0
+    this.bossHits = 0
+
+    this.shiftedMeatballs = []
+    this.player.bullets = []
+    this.player.cdtime = 0
+
+    this.boolVal = false
+    this.audio.pause()
+
+    // Game restarts after 3 seconds
+    setTimeout(() => {
+
+        location.reload()
+    }, 3000)
+
+},
+
+youWin() {
+
+    clearInterval(this.interval)
+    this.clear()
+
+    this.ctx.font = "30px Arial"
+    this.ctx.fillText("YOU WON :) GET A LIFE, THO", this.canvasSize.w / 2 - 200, this.canvasSize.h / 2)
+
+    this.player.hits = 0
+    this.bossHits = 0
+
+    this.player.bullets = []
+    this.player.cdtime = 0
+
+    boolVal = false
+    this.audio.pause()
+
+
+
+    // Game restarts after 3 seconds
+    setTimeout(() => {
+
+        location.reload()
+    }, 3000)
+}
 
 }
 

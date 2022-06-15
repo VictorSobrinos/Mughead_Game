@@ -1,4 +1,5 @@
 class Bullet {
+
     constructor(ctx, playerPosX, playerPosY, playerHeight, playerWidth) {
         this.ctx = ctx
 
@@ -14,6 +15,7 @@ class Bullet {
 
 
     draw() {
+
         this.ctx.fillStyle = 'red'
         this.ctx.fillRect(this.posX, this.posY, this.width, this.height)
 
@@ -21,6 +23,7 @@ class Bullet {
     }
 
     move() {
+
         this.posX += this.velX
     }
 
