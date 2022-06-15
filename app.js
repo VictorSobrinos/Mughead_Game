@@ -13,6 +13,8 @@ const App = {
     audio: new Audio("./resources/cuphead_music.mp3"),
     winImg: undefined,
     defeatImg: undefined,
+    gameOverBool: false,
+    winBool: false,
 
     // CANVAS SIZE 
     canvasSize: {
@@ -26,6 +28,7 @@ const App = {
     FPS: 120,
     framesCounter: 0,
 
+    background: undefined,
     player: undefined,
     boss: undefined,
     floor: undefined,
@@ -106,6 +109,7 @@ const App = {
 
             this.clear()
 
+            this.background.draw()
             this.player.draw()
             this.player.shoot()
 
@@ -124,11 +128,26 @@ const App = {
             this.isCollision()
             this.clearMeatballs()
             this.clearBullets()
+            // ÚLTIMOS CAMBIOS!!!
+            if (this.gameOverBool) {
+                this.ctx.drawImage(this.defeatImg, 0, 0, this.canvasSize.w, this.canvasSize.h)
+            }
+            if (this.winBool) {
+                this.ctx.drawImage(this.winImg, 0, 0, this.canvasSize.w, this.canvasSize.h)
+            }
         }, 1000 / this.FPS)
     },
 
     // VUELVE AQUÍ!!!
     createAll() {
+
+        this.defeatImg = new Image()
+        this.defeatImg.src = "./resources/defeat2.jpg"
+
+        this.winImg = new Image()
+        this.winImg.src = "./resources/victory!.png"
+
+        this.background = new Background(this.ctx, this.canvasSize.w, this.canvasSize.h)
 
         if (this.diffBool) {
 
@@ -198,14 +217,9 @@ const App = {
 
     gameOver() {
 
-
+        this.gameOverBool = true
         clearInterval(this.interval)
         this.clear()
-
-        this.winImg = new Image()
-        this.winImg.src = "./resources/casa mughead.jpg"
-        // this.winImg.src = "./resources\ victory!.png"
-        this.ctx.drawImage(this.winImg, 0, 0, this.canvasSize.w, this.canvasSize.h)
 
         // this.ctx.font = "30px Arial"
         // this.ctx.fillText("YOU LOST! :(", this.canvasSize.w / 2 - 200, this.canvasSize.h / 2)
@@ -233,10 +247,10 @@ const App = {
         clearInterval(this.interval)
         this.clear()
 
+        this.youWin = true
+
         // this.ctx.font = "30px Arial"
         // this.ctx.fillText("YOU WON :) GET A LIFE, THO", this.canvasSize.w / 2 - 200, this.canvasSize.h / 2)
-        this.winImg = new Image()
-        this.winImg.src = "resources\victory!.png"
         this.ctx.drawImage(this.winImg, 0, 0)
         // this.ctx.drawImage("./resources\ victory!.png", this.posX + this.width, this.posY, this.width, this.height);
 
