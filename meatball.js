@@ -1,5 +1,5 @@
 class Meatball {
-    constructor(ctx, bossPosX, bossPosY, bossHeight) {
+    constructor(ctx, bossPosX, bossPosY, bossHeight, velX) {
         this.ctx = ctx
 
         this.posX = bossPosX - 150
@@ -8,7 +8,7 @@ class Meatball {
         this.width = 100
         this.height = 100
 
-        this.velX = -5
+        this.velX = velX 
 
     }
 

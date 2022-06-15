@@ -17,6 +17,7 @@
      height: 100%;
  }
 
+
  .nonDisplay {
      display: none;
  }
@@ -34,8 +35,8 @@
      margin: 500px auto;
  } */
 
- /* button {
-     display: block; */
- /* margin-left: 350px;
+ button {
+     display: block;
+     margin-left: 350px;
      margin-top: 350px;
- } */
+ }

@@ -1,6 +1,6 @@
 class Boss {
 
-    constructor(ctx, Width, Height, posX, posY, framesCounter, hits) {
+    constructor(ctx, Width, Height, posX, posY, framesCounter, hits, meatVel) {
         this.ctx = ctx
 
         this.size = {
@@ -24,6 +24,8 @@ class Boss {
         this.hits = hits
 
         this.difficulty = 110
+        
+        this.meatVel = meatVel
     }
 
     draw(framesCounter) {
@@ -32,7 +34,7 @@ class Boss {
         this.ctx.fillRect(this.position.x, this.position.y, this.size.width, this.size.heigth)
 
         if (framesCounter % this.difficulty === 0) {
-            this.meatballs.push(new Meatball(this.ctx, this.position.x, this.position.y, this.size.heigth))
+            this.meatballs.push(new Meatball(this.ctx, this.position.x, this.position.y, this.size.heigth, this.meatVel))
 
         }
 
