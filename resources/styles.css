@@ -45,14 +45,17 @@
      padding: 20px;
      margin-left: 20px;
      border: 1px solid black;
+     border-radius: 2%;
      letter-spacing: 2px;
      background-color: #f6e7d6;
      box-shadow: 0 0 3px black;
      font-family: 'Ultra', serif;
      font-size: 2em;
+     cursor: pointer;
 
  }
 
  button:hover {
+
      background-color: #a67648;
  }

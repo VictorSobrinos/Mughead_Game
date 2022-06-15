@@ -8,8 +8,11 @@ const App = {
     description: 'Best Game in Town',
     appWidth: undefined,
     appHeight: undefined,
-    audio: new Audio("./resources/cuphead_music.mp3"),
 
+    // Resources
+    audio: new Audio("./resources/cuphead_music.mp3"),
+    winImg: undefined,
+    defeatImg: undefined,
 
     // CANVAS SIZE 
     canvasSize: {
@@ -194,12 +197,18 @@ const App = {
     },
 
     gameOver() {
-        console.log('gameOver')
+
+
         clearInterval(this.interval)
         this.clear()
 
-        this.ctx.font = "30px Arial"
-        this.ctx.fillText("YOU LOST! :(", this.canvasSize.w / 2 - 200, this.canvasSize.h / 2)
+        this.winImg = new Image()
+        this.winImg.src = "./resources/casa mughead.jpg"
+        // this.winImg.src = "./resources\ victory!.png"
+        this.ctx.drawImage(this.winImg, 0, 0, this.canvasSize.w, this.canvasSize.h)
+
+        // this.ctx.font = "30px Arial"
+        // this.ctx.fillText("YOU LOST! :(", this.canvasSize.w / 2 - 200, this.canvasSize.h / 2)
 
         this.player.hits = 0
         this.bossHits = 0
@@ -224,8 +233,12 @@ const App = {
         clearInterval(this.interval)
         this.clear()
 
-        this.ctx.font = "30px Arial"
-        this.ctx.fillText("YOU WON :) GET A LIFE, THO", this.canvasSize.w / 2 - 200, this.canvasSize.h / 2)
+        // this.ctx.font = "30px Arial"
+        // this.ctx.fillText("YOU WON :) GET A LIFE, THO", this.canvasSize.w / 2 - 200, this.canvasSize.h / 2)
+        this.winImg = new Image()
+        this.winImg.src = "resources\victory!.png"
+        this.ctx.drawImage(this.winImg, 0, 0)
+        // this.ctx.drawImage("./resources\ victory!.png", this.posX + this.width, this.posY, this.width, this.height);
 
         this.player.hits = 0
         this.bossHits = 0
