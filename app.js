@@ -70,14 +70,13 @@ const App = {
         let diffHard = document.querySelector(".hard")
         let difficulty = document.querySelector(".difficulty")
         let canvasTag = document.querySelector("#canvas")
-        let background = document.querySelector(".background")
 
         diffNormal.addEventListener("click", function () {
 
             console.log("DIFICULTAD NORMAL!")
             App.diffBool = true
             difficulty.classList.toggle("nonDisplay")
-            background.classList.toggle("nonDisplay")
+            canvasTag.classList.toggle("nonDisplay")
             App.init()
         })
 
@@ -85,7 +84,7 @@ const App = {
             console.log('Hard')
             App.diffBool = false
             difficulty.classList.toggle("nonDisplay")
-            background.classList.toggle("nonDisplay")
+            canvasTag.classList.toggle("nonDisplay")
 
             App.init()
         })
