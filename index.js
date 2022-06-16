@@ -13,7 +13,6 @@ window.onload = () => {
             background.classList.toggle("nonDisplay")
             difficulty.classList.toggle("nonDisplay")
 
-            // difficulty.classList.toggle("nonDisplay")
             App.menu()
         }
         boolVal = true

@@ -1,6 +1,6 @@
 class Player {
 
-    constructor(ctx, Width, Height, posX, posY, bossPosition, floor, hits) {
+    constructor(ctx, Width, Height, posX, posY, bossPosition, floor, hits, cooldown) {
 
         this.ctx = ctx
 
@@ -40,7 +40,7 @@ class Player {
 
         this.hits = hits
 
-        this.cdtime = 50
+        this.cdtime = cooldown
 
         this.cd = this.cdtime
 
@@ -53,10 +53,6 @@ class Player {
         this.framesIndex = 0;
 
         this.shootAudio = new Audio("./resources/shoot_sound.mp3")
-
-
-
-
     }
 
     animate(framesCounter) {
@@ -66,9 +62,6 @@ class Player {
         this.playerImg.src = "./resources/jumpAnimation.png"; //Meter nuestra imagen
         this.playerImg.frames = 8; //Meter nuestros frames
 
-
-
-
         if (framesCounter % 5 === 0) {
             this.framesIndex++;
 
@@ -77,7 +70,6 @@ class Player {
         if (this.framesIndex >= this.playerImg.frames) {
             this.framesIndex = 0;
         }
-
 
         this.ctx.drawImage(
             this.playerImg,
@@ -93,6 +85,7 @@ class Player {
 
 
     }
+
     draw() {
 
         if (this.cd < this.cdtime) {
@@ -105,7 +98,6 @@ class Player {
 
         if (this.pos.y === this.floorPosY) {
             this.jumpBool = false
-            console.log(this.jumpBool)
             this.playerImg.src = "./resources/mainPlayer.png"
         }
 
@@ -171,9 +163,7 @@ class Player {
 
     moveRight() {
 
-        if (this.pos.x < this.bossPosition - this.size.width - 10)
-            this.pos.x += 6
-
+        if (this.pos.x < this.bossPosition - this.size.width - 10) this.pos.x += 6
     }
 
     jump() {
@@ -203,7 +193,6 @@ class Player {
     shoot() {
 
         this.bullets.forEach(bullet => bullet.draw())
-
     }
 
 }

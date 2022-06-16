@@ -70,6 +70,7 @@ const App = {
         document.querySelector('#canvas').setAttribute('height', this.appHeight)
     },
 
+    // Difficulty menu screen
     menu() {
 
         let diffNormal = document.querySelector(".normal")
@@ -79,7 +80,6 @@ const App = {
 
         diffNormal.addEventListener("click", function () {
 
-            console.log("DIFICULTAD NORMAL!")
             App.diffBool = true
             difficulty.classList.toggle("nonDisplay")
             canvasTag.classList.toggle("nonDisplay")
@@ -87,7 +87,6 @@ const App = {
         })
 
         diffHard.addEventListener("click", function () {
-            console.log('Hard')
             App.diffBool = false
             difficulty.classList.toggle("nonDisplay")
             canvasTag.classList.toggle("nonDisplay")
@@ -123,7 +122,6 @@ const App = {
                 this.player.moveRight()
             }
             if (this.player.jumpBool) {
-                console.log(this.player.jumpBool)
                 this.player.animate(this.framesCounter)
             }
             this.boss.draw(this.framesCounter)
@@ -155,12 +153,12 @@ const App = {
         if (this.diffBool) {
 
             this.boss = new Boss(this.ctx, 450, 400, this.canvasSize.w - 450, this.floor - 300, this.framesCounter, 500, -6)
-            this.player = new Player(this.ctx, 120, 150, 100, this.floor, this.boss.position.x, this.floor - 50, 0)
+            this.player = new Player(this.ctx, 120, 150, 100, this.floor, this.boss.position.x, this.floor - 50, 0, 50)
         }
         if (!this.diffBool) {
 
             this.boss = new Boss(this.ctx, 450, 400, this.canvasSize.w - 450, this.floor - 300, this.framesCounter, 1000, -3.5)
-            this.player = new Player(this.ctx, 120, 150, 100, this.floor, this.boss.position.x, this.floor - 50, 1)
+            this.player = new Player(this.ctx, 120, 150, 100, this.floor, this.boss.position.x, this.floor - 50, 1, 35)
         }
     },
 
@@ -180,7 +178,6 @@ const App = {
 
                 this.player.hits++
 
-                console.log(this.player.hits)
             }
         })
 
