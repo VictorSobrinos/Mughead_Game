@@ -31,8 +31,12 @@ class Boss {
     draw(framesCounter) {
 
         this.bossImg = new Image()
-        // this.bossImg.src = "./resources/boss.png"
         this.bossImg.src = "./resources/mrpotato.png"
+        // this.bossImg.src = "./resources/boss.png"
+        if (this.meatballs.length > 0) {
+            this.bossImg.src = "./resources/boss.png"
+        }
+
 
 
         this.ctx.drawImage(this.bossImg, this.position.x, this.position.y, this.size.width, this.size.heigth)

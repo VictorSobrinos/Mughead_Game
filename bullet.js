@@ -11,6 +11,7 @@ class Bullet {
 
         this.velX = 10
 
+
     }
 
 
@@ -25,6 +26,9 @@ class Bullet {
         this.ctx.drawImage(this.bulletImg, this.posX, this.posY, this.width, this.height)
 
         this.move()
+
+
+
     }
 
     move() {

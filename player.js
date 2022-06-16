@@ -52,6 +52,11 @@ class Player {
 
         this.framesIndex = 0;
 
+        this.shootAudio = new Audio("./resources/shoot_sound.mp3")
+
+
+
+
     }
 
     animate(framesCounter) {
@@ -127,6 +132,7 @@ class Player {
                 case this.keys.SHOOT:
                     if (this.cd === this.cdtime) {
                         this.bullets.push(new Bullet(this.ctx, this.pos.x, this.pos.y, this.size.height, this.size.width))
+                        this.shootAudio.play()
                         this.cd = 0
                         this.shoot()
                     }
@@ -198,10 +204,6 @@ class Player {
 
         this.bullets.forEach(bullet => bullet.draw())
 
-        if (!this.jumpBool) {
-
-
-        }
     }
 
 }

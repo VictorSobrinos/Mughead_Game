@@ -127,12 +127,12 @@ const App = {
                 this.player.animate(this.framesCounter)
             }
             this.boss.draw(this.framesCounter)
-            // this.meatball.animate(this.framesCounter)
+
             this.boss.shoot(this.framesCounter)
             this.isCollision()
             this.clearMeatballs()
             this.clearBullets()
-            // ÚLTIMOS CAMBIOS!!!
+
             if (this.gameOverBool) {
                 this.ctx.drawImage(this.defeatImg, 0, 0, this.canvasSize.w, this.canvasSize.h)
             }
@@ -142,7 +142,6 @@ const App = {
         }, 1000 / this.FPS)
     },
 
-    // VUELVE AQUÍ!!!
     createAll() {
 
         this.defeatImg = new Image()
@@ -155,13 +154,13 @@ const App = {
 
         if (this.diffBool) {
 
-            this.boss = new Boss(this.ctx, 450, 400, this.canvasSize.w - 450, this.floor - 300, this.framesCounter, 100, -4)
+            this.boss = new Boss(this.ctx, 450, 400, this.canvasSize.w - 450, this.floor - 300, this.framesCounter, 500, -4)
             this.player = new Player(this.ctx, 120, 150, 100, this.floor, this.boss.position.x, this.floor - 50, 0)
         }
         if (!this.diffBool) {
 
-            this.boss = new Boss(this.ctx, 450, 400, this.canvasSize.w - 450, this.floor - 300, this.framesCounter, 300, -6)
-            this.player = new Player(this.ctx, 120, 150, 100, this.floor, this.boss.position.x, this.floor - 50, 1)
+            this.boss = new Boss(this.ctx, 450, 400, this.canvasSize.w - 450, this.floor - 300, this.framesCounter, 1000, -6)
+            this.player = new Player(this.ctx, 120, 150, 100, this.floor, this.boss.position.x, this.floor - 50, -10)
         }
     },
 
@@ -180,9 +179,7 @@ const App = {
                 this.shiftedMeatballs.push(this.boss.meatballs.shift())
                 console.log('golpe!')
 
-                Meatball.
-
-                    this.player.hits++
+                this.player.hits++
 
                 console.log(this.player.hits)
             }
@@ -218,7 +215,7 @@ const App = {
 
     clearBullets() {
 
-        this.player.bullets = this.player.bullets.filter(bullet => bullet.posX < this.boss.position.x)
+        this.player.bullets = this.player.bullets.filter(bullet => bullet.posX < this.boss.position.x + this.boss.size.width / 2)
     },
 
     gameOver() {
@@ -237,7 +234,6 @@ const App = {
         this.boolVal = false
         this.audio.pause()
 
-        alert('pare')
         // Game restarts after 3 seconds
         setTimeout(() => {
 
