@@ -12,7 +12,6 @@ class Meatball {
 
         this.meatBalltImg = new Image()
         this.meatBalltImg.src = "./resources/meat.png"
-
         this.framesIndex = 0
     }
 

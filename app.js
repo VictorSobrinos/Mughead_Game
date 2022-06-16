@@ -155,13 +155,13 @@ const App = {
 
         if (this.diffBool) {
 
-            this.boss = new Boss(this.ctx, 450, 500, this.canvasSize.w - 450, this.floor - 400, this.framesCounter, 100, -4)
-            this.player = new Player(this.ctx, 100, 155, 100, this.floor, this.boss.position.x, this.floor - 50, 0)
+            this.boss = new Boss(this.ctx, 450, 400, this.canvasSize.w - 450, this.floor - 300, this.framesCounter, 100, -4)
+            this.player = new Player(this.ctx, 120, 150, 100, this.floor, this.boss.position.x, this.floor - 50, 0)
         }
         if (!this.diffBool) {
 
-            this.boss = new Boss(this.ctx, 400, 500, this.canvasSize.w - 450, this.floor - 400, this.framesCounter, 300, -6)
-            this.player = new Player(this.ctx, 100, 155, 100, this.floor, this.boss.position.x, this.floor - 50, 1)
+            this.boss = new Boss(this.ctx, 450, 400, this.canvasSize.w - 450, this.floor - 300, this.framesCounter, 300, -6)
+            this.player = new Player(this.ctx, 120, 150, 100, this.floor, this.boss.position.x, this.floor - 50, 1)
         }
     },
 
