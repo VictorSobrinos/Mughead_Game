@@ -154,13 +154,13 @@ const App = {
 
         if (this.diffBool) {
 
-            this.boss = new Boss(this.ctx, 450, 400, this.canvasSize.w - 450, this.floor - 300, this.framesCounter, 500, -4)
+            this.boss = new Boss(this.ctx, 450, 400, this.canvasSize.w - 450, this.floor - 300, this.framesCounter, 500, -6)
             this.player = new Player(this.ctx, 120, 150, 100, this.floor, this.boss.position.x, this.floor - 50, 0)
         }
         if (!this.diffBool) {
 
-            this.boss = new Boss(this.ctx, 450, 400, this.canvasSize.w - 450, this.floor - 300, this.framesCounter, 1000, -6)
-            this.player = new Player(this.ctx, 120, 150, 100, this.floor, this.boss.position.x, this.floor - 50, -10)
+            this.boss = new Boss(this.ctx, 450, 400, this.canvasSize.w - 450, this.floor - 300, this.framesCounter, 1000, -3.5)
+            this.player = new Player(this.ctx, 120, 150, 100, this.floor, this.boss.position.x, this.floor - 50, 1)
         }
     },
 
@@ -172,12 +172,11 @@ const App = {
     isCollision() {
 
         this.boss.meatballs.forEach(meatball => {
-            if ((this.player.pos.x + this.player.size.width >= meatball.posX + 25 //+25 to improve hitbox limits
+            if ((this.player.pos.x + this.player.size.width >= meatball.posX + 40 //+25 to improve hitbox limits
                 && this.player.pos.x < meatball.posX + meatball.width)
                 && (this.player.pos.y + this.player.size.height >= meatball.posY + 20)) { //+20 to improve hitbox limits
 
                 this.shiftedMeatballs.push(this.boss.meatballs.shift())
-                console.log('golpe!')
 
                 this.player.hits++
 
