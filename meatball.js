@@ -8,14 +8,17 @@ class Meatball {
         this.width = 100
         this.height = 100
 
-        this.velX = velX 
+        this.velX = velX
 
+        this.meatBalltImg = new Image()
+        this.meatBalltImg.src = "./resources/meat.png"
+
+        this.framesIndex = 0
     }
 
     draw() {
-        this.ctx.fillStyle = 'brown'
-        this.ctx.fillRect(this.posX, this.posY, this.width, this.height)
 
+        this.ctx.drawImage(this.meatBalltImg, this.posX, this.posY, this.width, this.height)
         this.move()
     }
 
@@ -23,4 +26,5 @@ class Meatball {
         this.posX += this.velX
     }
 
+    
 }

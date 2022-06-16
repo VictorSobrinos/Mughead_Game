@@ -23,7 +23,7 @@
  }
 
  .difficulty {
-     background: url("./casa\ mughead.jpg");
+     background: url("./casa_mughead_keys.png");
      background-size: cover;
      background-position: center;
      background-repeat: no-repeat;
@@ -59,6 +59,7 @@
 
      background-color: #a67648;
  }
+
  .imag {
-    background: url("./Original_defeat.jpg");
+     background: url("./Original_defeat.jpg");
  }

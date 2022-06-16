@@ -122,9 +122,13 @@ const App = {
             if (this.player.rightCheck) {
                 this.player.moveRight()
             }
-
+            if (this.player.jumpBool) {
+                console.log(this.player.jumpBool)
+                this.player.animate(this.framesCounter)
+            }
             this.boss.draw(this.framesCounter)
-            this.boss.shoot()
+            // this.meatball.animate(this.framesCounter)
+            this.boss.shoot(this.framesCounter)
             this.isCollision()
             this.clearMeatballs()
             this.clearBullets()
@@ -151,13 +155,13 @@ const App = {
 
         if (this.diffBool) {
 
-            this.boss = new Boss(this.ctx, 200, 400, this.canvasSize.w - 300, this.floor - 300, this.framesCounter, 100, -4)
-            this.player = new Player(this.ctx, 50, 100, 100, this.floor, this.boss.position.x, this.floor, 0)
+            this.boss = new Boss(this.ctx, 450, 500, this.canvasSize.w - 450, this.floor - 400, this.framesCounter, 100, -4)
+            this.player = new Player(this.ctx, 100, 155, 100, this.floor, this.boss.position.x, this.floor - 50, 0)
         }
         if (!this.diffBool) {
 
-            this.boss = new Boss(this.ctx, 200, 400, this.canvasSize.w - 300, this.floor - 300, this.framesCounter, 300, -6)
-            this.player = new Player(this.ctx, 50, 100, 100, this.floor, this.boss.position.x, this.floor, 1)
+            this.boss = new Boss(this.ctx, 400, 500, this.canvasSize.w - 450, this.floor - 400, this.framesCounter, 300, -6)
+            this.player = new Player(this.ctx, 100, 155, 100, this.floor, this.boss.position.x, this.floor - 50, 1)
         }
     },
 
@@ -176,7 +180,9 @@ const App = {
                 this.shiftedMeatballs.push(this.boss.meatballs.shift())
                 console.log('golpe!')
 
-                this.player.hits++
+                Meatball.
+
+                    this.player.hits++
 
                 console.log(this.player.hits)
             }
@@ -221,9 +227,6 @@ const App = {
         clearInterval(this.interval)
         this.clear()
 
-        // this.ctx.font = "30px Arial"
-        // this.ctx.fillText("YOU LOST! :(", this.canvasSize.w / 2 - 200, this.canvasSize.h / 2)
-
         this.player.hits = 0
         this.bossHits = 0
 
@@ -234,6 +237,7 @@ const App = {
         this.boolVal = false
         this.audio.pause()
 
+        alert('pare')
         // Game restarts after 3 seconds
         setTimeout(() => {
 
@@ -249,10 +253,7 @@ const App = {
 
         this.youWin = true
 
-        // this.ctx.font = "30px Arial"
-        // this.ctx.fillText("YOU WON :) GET A LIFE, THO", this.canvasSize.w / 2 - 200, this.canvasSize.h / 2)
         this.ctx.drawImage(this.winImg, 0, 0)
-        // this.ctx.drawImage("./resources\ victory!.png", this.posX + this.width, this.posY, this.width, this.height);
 
         this.player.hits = 0
         this.bossHits = 0

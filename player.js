@@ -43,17 +43,66 @@ class Player {
         this.cdtime = 50
 
         this.cd = this.cdtime
+
+        this.jumpBool = false
+
+        this.playerImg = new Image()
+
+        this.playerImg.src = "./resources/mainPlayer.png"; //Meter nuestra imagen
+
+        this.framesIndex = 0;
+
     }
 
+    animate(framesCounter) {
+
+        this.playerImg = new Image()
+
+        this.playerImg.src = "./resources/jumpAnimation.png"; //Meter nuestra imagen
+        this.playerImg.frames = 8; //Meter nuestros frames
+
+
+
+
+        if (framesCounter % 5 === 0) {
+            this.framesIndex++;
+
+        }
+
+        if (this.framesIndex >= this.playerImg.frames) {
+            this.framesIndex = 0;
+        }
+
+
+        this.ctx.drawImage(
+            this.playerImg,
+            this.framesIndex * (this.playerImg.width / this.playerImg.frames), //Para movernos de frame de la misma playerImgn
+            0,
+            this.playerImg.width / this.playerImg.frames,
+            this.playerImg.height,
+            this.pos.x,
+            this.pos.y,
+            this.size.width,
+            this.size.height
+        )
+
+
+    }
     draw() {
 
         if (this.cd < this.cdtime) {
             this.cd++
         }
 
-        this.ctx.fillStyle = 'blue'
-        this.ctx.fillRect(this.pos.x, this.pos.y, this.size.width, this.size.height)
+        this.ctx.drawImage(this.playerImg, this.pos.x, this.pos.y, this.size.width, this.size.height)
+
         this.gravity()
+
+        if (this.pos.y === this.floorPosY) {
+            this.jumpBool = false
+            console.log(this.jumpBool)
+            this.playerImg.src = "./resources/mainPlayer.png"
+        }
 
     }
 
@@ -79,9 +128,8 @@ class Player {
                     if (this.cd === this.cdtime) {
                         this.bullets.push(new Bullet(this.ctx, this.pos.x, this.pos.y, this.size.height, this.size.width))
                         this.cd = 0
+                        this.shoot()
                     }
-                    this.shoot()
-
             }
 
         })
@@ -124,6 +172,8 @@ class Player {
 
     jump() {
 
+        this.jumpBool = true
+
         if (this.pos.y === this.floorPosY) {
             this.pos.y -= 20
             this.velY = -12
@@ -147,6 +197,11 @@ class Player {
     shoot() {
 
         this.bullets.forEach(bullet => bullet.draw())
+
+        if (!this.jumpBool) {
+
+
+        }
     }
 
 }
