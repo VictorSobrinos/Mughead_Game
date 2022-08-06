@@ -48,7 +48,7 @@ class Player {
 
         this.playerImg = new Image()
 
-        this.playerImg.src = "./resources/mainPlayer.png"; //Meter nuestra imagen
+        this.playerImg.src = "./resources/mainPlayer.png";
 
         this.framesIndex = 0;
 
@@ -59,8 +59,8 @@ class Player {
 
         this.playerImg = new Image()
 
-        this.playerImg.src = "./resources/jumpAnimation.png"; //Meter nuestra imagen
-        this.playerImg.frames = 8; //Meter nuestros frames
+        this.playerImg.src = "./resources/jumpAnimation.png";
+        this.playerImg.frames = 8;
 
         if (framesCounter % 5 === 0) {
             this.framesIndex++;
